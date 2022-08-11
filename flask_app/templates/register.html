@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- bootstrap -->
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Login</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary ">
+        <div class="container justify-content-between">
+            <h1 class="title">MyAlbumExperience</h1>
+        </div>
+        
+    </nav>
+    <div class="container">
+        <div class="d-flex flex-row">
+            <form action="/login/create" method="post" class="col-6 mx-auto">
+                <h1 class="text-center">Register</h1>
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name" class="form-control" value="{{login.first_name}}">
+                    {% for message in get_flashed_messages(category_filter="err_first_name") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name" class="form-control" value="{{login.last_name}}">
+                    {% for message in get_flashed_messages(category_filter="err_last_name") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" class="form-control" value="{{login.email}}">
+                    {% for message in get_flashed_messages(category_filter="err_email") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" class="form-control" value="{{login.password}}">
+                    {% for message in get_flashed_messages(category_filter="err_password") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" name="confirm_password" class="form-control" value="{{login.confirm_password}}">
+                    {% for message in get_flashed_messages(category_filter="err_confirm_password") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Register" class="btn btn-success">
+                <br>
+            </form>
+            <form action="/login/page" method="post" class="col-6 mx-auto">
+                <h1 class="text-center">Login</h1>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" class="form-control" value="{{login.email}}">
+                    {% for message in get_flashed_messages(category_filter="err_email_login") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" class="form-control" value="{{login.password}}">
+                    {% for message in get_flashed_messages(category_filter="err_password_login") %}  
+                    <p class="alert alert-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Login" class="btn btn-success">
+                <br>
+            </form> 
+        </div> 
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" 
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- bootstrap -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-primary ">
+        <div class="container justify-content-between">
+            <h1 class="title">MyAlbumExperience</h1>
+            <div>
+                <button class="btn-style"><a href="/top/albums" class="remove">Top Albums</a></button>
+                <button class="btn-style"><a href="/profile" class="remove">Profile Page</a></button>
+                <button class="btn-two-style"><a href="/login" class="remove">Logout</a></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="album_name text-primary font-1">{{tracks['name']}}</h1> 
+        <h2 class=" artist_name font-2">{{tracks['artists'][0]['name']}}</h2>
+        <div class="row">
+            <img class="album-img " src="{{tracks.images[0].url}}" alt="no img found" > 
+            <div class="col">
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>Overall Rating</th>
+                            <th>Ranked</th>
+                            <th>Popularity</th>
+                            <th>Number of Listeners</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for key in rating %}
+                            {% if sp.album(key)['name'] == tracks['name'] %}
+                            <td>{{rating[key][0] }}</td>
+
+                            <td>#{{rating[key][1]}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for key in popularity %}
+                            {% if sp.album(key)['name'] == tracks['name'] %}
+                            <td>#{{popularity[key][1] }}</td>
+                            <td>{{popularity[key][0] }}</td>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="/rating/{{tracks['id']}}" method = "post" class="artist_name">
+                    <label for="rating" class="text-primary">Rating:</label>
+                    <select  name="rating">
+                        <option value="10">10</option>
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                    <input type="submit" class="btn-two-style">
+                </form>
+                <a href="{{tracks['external_urls']['spotify']}}">
+                    <img src="https://logodownload.org/wp-content/uploads/2020/03/listen-on-spotify.png" class="sp-img">
+                </a>
+            </div>
+        </div>
+        
+        <h2>Track List</h2>
+        <hr class="hr-one">
+
+        <div class="d-flex justify-content-between flex-wrap">
+            {% for track in tracks['tracks']['items'] %}
+            <div>
+                <h3>{{track['name']}}</h3>
+                    <audio controls>
+                        <source src="{{track['preview_url']}}" type="">
+                    </audio>
+            </div>
+            {% endfor %}
+
+        </div>
+        
+        
+    </div>
+
+</body>
+</html>
